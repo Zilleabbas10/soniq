@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Input from './Input';
@@ -12,6 +12,7 @@ type InputWithButtonType = {
   placeholderText?: string;
   btnLabel?: string;
   keyboardType?: 'default' | 'email-address' | 'numeric' | 'phone-pad';
+  onBtnPress(): void;
 };
 const InputWithButton = ({
   inputValue = '',
@@ -19,6 +20,7 @@ const InputWithButton = ({
   placeholderText = 'Set Active User ID',
   btnLabel = 'Set user ID',
   keyboardType = 'default',
+  onBtnPress = () => {},
 }: InputWithButtonType) => {
   const backgroundColor =
     inputValue.length > 0 ? Colors.primary : Colors.primaryDisabled;
@@ -34,9 +36,12 @@ const InputWithButton = ({
           keyboardType={keyboardType}
         />
       </View>
-      <View style={[styles.buttonContainer, {backgroundColor}]}>
+      <TouchableOpacity
+        disabled={inputValue.length === 0}
+        onPress={onBtnPress}
+        style={[styles.buttonContainer, {backgroundColor}]}>
         <Text style={{color: Colors.white}}>{btnLabel}</Text>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };

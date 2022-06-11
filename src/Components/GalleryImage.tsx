@@ -18,23 +18,9 @@ const GalleryImage = React.memo(({item}: GalleryImageType) => {
   const {id, title, imageUrl} = item;
   const [isLoaded, setImageLoaded] = useState(false);
 
-  const deleteConfirmationAlert = () =>
-    Alert.alert(`${title}`, `Are you sure you want to delete this image?`, [
-      {
-        text: 'Cancel',
-        onPress: () => console.log('Cancel Pressed'),
-        style: 'cancel',
-      },
-      {
-        text: 'Delete',
-        //@ts-ignore
-        onPress: () => alert(JSON.stringify(item)),
-      },
-    ]);
-
   return (
     <TouchableOpacity
-      onPress={() => NavigationService.navigate('Details', item)}
+      onPress={() => NavigationService.navigate('Details', {imageId: id})}
       key={id}
       style={styles.imageContainer}>
       {!isLoaded && (

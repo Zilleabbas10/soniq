@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
     height: Metrics.screenHeight / 2.5,
   },
   imageTitleContainer: {
-    height: 40,
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
@@ -46,9 +45,11 @@ const styles = StyleSheet.create({
     bottom: 0,
     position: 'absolute',
     paddingHorizontal: Metrics.screenHorizontalPadding,
+    paddingVertical: Metrics.baseMargin,
   },
   titleText: {
     textTransform: 'capitalize',
+    textAlign: 'center',
     fontSize: Fonts.size.h4,
     fontWeight: '400',
     color: Colors.white,

@@ -1,21 +1,32 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
+import {useAppContext} from '../../Contexts/AppContext';
 import {Metrics} from '../../Themes';
+import {updateAppContext} from '../../Utils';
 import InputWithButton from '../InputWithButton';
 
 const Header = () => {
-  const [state, setState] = useState<{
-    userId: string;
-  }>({
-    userId: '',
-  });
-  const {userId} = state;
+  const {AppState, AppDispatcher} = useAppContext();
+  const {activeUserId} = AppState;
+  const [userId, setUserId] = useState('');
+  const placeholderText =
+    activeUserId !== ''
+      ? `User with '${activeUserId}' ID is active`
+      : 'Set Active User ID';
+
+  const updateActiveUserIdInContext = () => {
+    updateAppContext({AppDispatcher, data: {activeUserId: userId}});
+    setUserId('');
+  };
+
   return (
     <View style={styles.container}>
       <InputWithButton
         keyboardType="numeric"
         inputValue={userId}
-        setInputValue={id => setState({...state, userId: id})}
+        placeholderText={placeholderText}
+        setInputValue={id => setUserId(id)}
+        onBtnPress={updateActiveUserIdInContext}
       />
     </View>
   );

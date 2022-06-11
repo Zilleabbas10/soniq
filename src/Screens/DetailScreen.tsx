@@ -1,21 +1,28 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {CommentsSection, Footer, HeaderAndCoverImage} from '../Components';
+import {useAppContext} from '../Contexts/AppContext';
 import {Colors, Fonts, Metrics} from '../Themes';
 import {ImageType} from '../types';
+import {getDataByImageId} from '../Utils';
 
 type DetailScreenType = {
   route: {
-    params: ImageType;
+    params: {imageId: string};
   };
 };
 const DetailScreen = ({route}: DetailScreenType) => {
-  const {title, imageUrl, comments, id} = route.params;
+  const {AppState} = useAppContext();
+  const {images} = AppState;
+  const {imageId} = route.params;
+  const image = getDataByImageId({imageId, images}) as ImageType;
+  const {title, imageUrl, comments, id} = image;
+
   return (
     <View style={styles.container}>
       <HeaderAndCoverImage title={title} uri={imageUrl} />
-      <CommentsSection comments={comments} imageId={id} />
-      <Footer />
+      <CommentsSection comments={comments} imageId={id} title={title} />
+      <Footer imageId={imageId} />
     </View>
   );
 };
