@@ -1,23 +1,24 @@
 import React from 'react';
 import {FlatList} from 'react-native';
 
+import {useAppContext} from '../Contexts/AppContext';
+
 import {
   EmptyListBlankSlate,
   GalleryImage,
-  InputWithButton,
   ScreenContainer,
 } from '../Components';
-
-import {ImageType} from '../types';
-import data from '../Mock/data.json';
+import Header from '../Components/Home/Header';
 
 const HomeScreen = () => {
+  const {AppState} = useAppContext();
+  const {images} = AppState;
   return (
     <ScreenContainer>
       <>
-        <InputWithButton />
+        <Header />
         <FlatList
-          data={data as ImageType[]}
+          data={images}
           showsVerticalScrollIndicator={false}
           numColumns={3}
           initialNumToRender={10}

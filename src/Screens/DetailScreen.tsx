@@ -1,7 +1,6 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
-import {CommentsSection, HeaderAndCoverImage} from '../Components';
-import {NavigationService} from '../Services';
+import {StyleSheet, View} from 'react-native';
+import {CommentsSection, Footer, HeaderAndCoverImage} from '../Components';
 import {Colors, Fonts, Metrics} from '../Themes';
 import {ImageType} from '../types';
 
@@ -11,11 +10,12 @@ type DetailScreenType = {
   };
 };
 const DetailScreen = ({route}: DetailScreenType) => {
-  const {title, imageUrl} = route.params;
+  const {title, imageUrl, comments, id} = route.params;
   return (
     <View style={styles.container}>
       <HeaderAndCoverImage title={title} uri={imageUrl} />
-      <CommentsSection />
+      <CommentsSection comments={comments} imageId={id} />
+      <Footer />
     </View>
   );
 };

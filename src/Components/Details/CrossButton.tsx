@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
+import AppConstants from '../../Constants/AppConstants';
 import {NavigationService} from '../../Services';
 import {Colors, Metrics} from '../../Themes';
 
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     backgroundColor: Colors.blackTransparentColor,
     zIndex: 1,
-    top: Metrics.section * 2,
+    top: AppConstants.IS_ANDROID ? Metrics.section : Metrics.section * 2,
     right: 10,
     position: 'absolute',
   },

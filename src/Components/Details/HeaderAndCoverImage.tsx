@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
     bottom: 0,
     position: 'absolute',
+    paddingHorizontal: Metrics.screenHorizontalPadding,
   },
   titleText: {
     textTransform: 'capitalize',

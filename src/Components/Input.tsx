@@ -10,6 +10,7 @@ type InputType = {
   placeholderTextColor: string;
   selectionColor: string;
   placeholder: string;
+  keyboardType?: 'default' | 'email-address' | 'numeric' | 'phone-pad';
 };
 const Input = (props: InputType) => {
   return <TextInput style={styles.input} {...props} />;

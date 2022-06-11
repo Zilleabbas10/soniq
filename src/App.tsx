@@ -9,6 +9,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import AppNavigation from './Navigation/AppNavigator';
 import NavigationService from './Services/NavigationService';
 import {Colors} from './Themes';
+import {AppContextProvider} from './Contexts/AppContext';
 
 export type StackActionsParamList = {
   name?: unknown | string;
@@ -26,7 +27,9 @@ const App = () => {
         onReady={() => NavigationService.setTopLevelNavigator(navigationRef)}>
         <StatusBar />
         <SafeAreaView style={styles.safeAreaView}>
-          <AppNavigation />
+          <AppContextProvider>
+            <AppNavigation />
+          </AppContextProvider>
         </SafeAreaView>
       </NavigationContainer>
     </SafeAreaProvider>

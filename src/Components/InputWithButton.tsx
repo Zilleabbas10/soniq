@@ -6,30 +6,38 @@ import Input from './Input';
 
 import {Colors, Metrics} from '../Themes';
 
-const InputWithButton = () => {
-  const [state, setState] = useState<{
-    inputUserId: string;
-  }>({
-    inputUserId: '',
-  });
-  const {inputUserId} = state;
+type InputWithButtonType = {
+  inputValue: string;
+  setInputValue(val: string): void;
+  placeholderText?: string;
+  btnLabel?: string;
+  keyboardType?: 'default' | 'email-address' | 'numeric' | 'phone-pad';
+};
+const InputWithButton = ({
+  inputValue = '',
+  setInputValue = () => {},
+  placeholderText = 'Set Active User ID',
+  btnLabel = 'Set user ID',
+  keyboardType = 'default',
+}: InputWithButtonType) => {
+  const backgroundColor =
+    inputValue.length > 0 ? Colors.primary : Colors.primaryDisabled;
   return (
-    <>
-      <View style={styles.container}>
-        <View style={styles.inputContainer}>
-          <Input
-            onChangeText={text => setState({...state, inputUserId: text})}
-            value={inputUserId}
-            placeholder={`Set Active User ID`}
-            placeholderTextColor={Colors.secondaryText}
-            selectionColor={Colors.secondaryText}
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Text style={{color: Colors.white}}>Set user ID</Text>
-        </View>
+    <View style={styles.container}>
+      <View style={styles.inputContainer}>
+        <Input
+          onChangeText={setInputValue}
+          value={inputValue}
+          placeholder={placeholderText}
+          placeholderTextColor={Colors.secondaryText}
+          selectionColor={Colors.secondaryText}
+          keyboardType={keyboardType}
+        />
       </View>
-    </>
+      <View style={[styles.buttonContainer, {backgroundColor}]}>
+        <Text style={{color: Colors.white}}>{btnLabel}</Text>
+      </View>
+    </View>
   );
 };
 
@@ -37,7 +45,7 @@ export default InputWithButton;
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: Metrics.section,
+    marginBottom: Metrics.doubleBaseMargin,
     width: '100%',
     height: 40,
     flexDirection: 'row',
@@ -47,7 +55,6 @@ const styles = StyleSheet.create({
     width: '30%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.primary,
     borderRadius: Metrics.smallMargin,
   },
   inputContainer: {
