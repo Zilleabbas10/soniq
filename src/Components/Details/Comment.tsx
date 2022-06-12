@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -25,18 +25,21 @@ const Comment = ({comment, imageTitle, imageId}: CommentComponentType) => {
   const {body, id, userId} = comment;
   const [isDialogVisible, setDialogVisible] = useState<boolean>(false);
 
-  const canUserPerformAction = activeUserId === userId;
+  const canUserPerformAction = useMemo(
+    () => activeUserId === userId,
+    [activeUserId, userId],
+  );
 
-  const deleteComment = () => {
+  const deleteComment = useCallback(() => {
     const updatedImages = removeComment({
       imageId,
       commentId: id,
       images,
     });
     updateAppContext({AppDispatcher, data: updatedImages});
-  };
+  }, []);
 
-  const editImageComment = (comment: string) => {
+  const editImageComment = useCallback((comment: string) => {
     const updatedImages = editComment({
       imageId,
       commentId: id,
@@ -45,7 +48,8 @@ const Comment = ({comment, imageTitle, imageId}: CommentComponentType) => {
     });
     updateAppContext({AppDispatcher, data: updatedImages});
     setDialogVisible(false);
-  };
+  }, []);
+
   return (
     <View style={styles.commmentContainer}>
       <View style={styles.commentTextContainer}>

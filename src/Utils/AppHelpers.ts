@@ -10,7 +10,7 @@ export const deleteConfirmationAlert = ({
   title,
   deleteComment,
 }: deleteConfirmationAlertType) =>
-  Alert.alert(`${title}`, `Are you sure you want to delete this image?`, [
+  Alert.alert(`${title}`, `Are you sure you want to delete this comment?`, [
     {
       text: 'Cancel',
       onPress: () => console.log('Cancel Pressed'),
@@ -18,7 +18,6 @@ export const deleteConfirmationAlert = ({
     },
     {
       text: 'Delete',
-      //@ts-ignore
       onPress: deleteComment,
     },
   ]);

@@ -2,10 +2,7 @@ export type AppStateType = {
   images: ImageType[];
   apiLoader: boolean;
   activeUserId: string;
-};
-
-export type HomeScreenStateType = {
-  searchString: string;
+  isNetworkAvailable: boolean;
 };
 
 export type ImageType = {

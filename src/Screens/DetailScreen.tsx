@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {CommentsSection, Footer, HeaderAndCoverImage} from '../Components';
 import {useAppContext} from '../Contexts/AppContext';
@@ -15,7 +15,10 @@ const DetailScreen = ({route}: DetailScreenType) => {
   const {AppState} = useAppContext();
   const {images} = AppState;
   const {imageId} = route.params;
-  const image = getDataByImageId({imageId, images}) as ImageType;
+  const image = useMemo(
+    () => getDataByImageId({imageId, images}),
+    [images],
+  ) as ImageType;
   const {title, imageUrl, comments, id} = image;
 
   return (

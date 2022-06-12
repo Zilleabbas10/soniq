@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {useAppContext} from '../../Contexts/AppContext';
 import {Metrics} from '../../Themes';
@@ -14,10 +14,10 @@ const Header = () => {
       ? `User with '${activeUserId}' ID is active`
       : 'Set Active User ID';
 
-  const updateActiveUserIdInContext = () => {
+  const updateActiveUserIdInContext = useCallback(() => {
     updateAppContext({AppDispatcher, data: {activeUserId: userId}});
     setUserId('');
-  };
+  }, [userId]);
 
   return (
     <View style={styles.container}>

@@ -1,15 +1,6 @@
 import axios from 'axios';
 import APP_ENDPOINTS from './endpoints';
 
-const getPosts = async () => {
-  try {
-    const URL = `${APP_ENDPOINTS.GET_POSTS}`;
-    const response = await axios.get(URL);
-    return {...response};
-  } catch (error) {
-    return {error, data: []};
-  }
-};
 const config = {
   headers: {
     'Content-Type': 'application/json',
@@ -33,6 +24,5 @@ const getImagesData = () => {
 };
 
 export default {
-  getPosts,
   getImagesData,
 };

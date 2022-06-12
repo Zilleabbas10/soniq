@@ -6,6 +6,7 @@ const defaultAppState: AppStateType = {
   images: [],
   apiLoader: false,
   activeUserId: '',
+  isNetworkAvailable: false,
 };
 
 const reducer = (state: AppStateType, action: any) => {

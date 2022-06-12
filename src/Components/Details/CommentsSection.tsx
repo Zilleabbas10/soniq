@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {useAppContext} from '../../Contexts/AppContext';
 import {Fonts, Metrics} from '../../Themes';
@@ -13,7 +13,7 @@ type CommentsSectionType = {
 const CommentsSection = ({comments, imageId, title}: CommentsSectionType) => {
   const {AppState} = useAppContext();
   const {activeUserId} = AppState;
-  const activeUserIdExist = activeUserId !== '';
+  const activeUserIdExist = useMemo(() => activeUserId !== '', [activeUserId]);
   return (
     <View style={styles.container}>
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>

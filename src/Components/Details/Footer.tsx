@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import AppConstants from '../../Constants/AppConstants';
 import {useAppContext} from '../../Contexts/AppContext';
@@ -14,7 +14,7 @@ const Footer = ({imageId}: FooterType) => {
   const {images, activeUserId} = AppState;
   const [comment, setComment] = useState<string>('');
 
-  const addImageComment = () => {
+  const addImageComment = useCallback(() => {
     if (activeUserId === '') {
       userConfirmationAlert({
         subTitle: `You can't do this action. Please set user ID first from home screen to add comment`,
@@ -29,7 +29,8 @@ const Footer = ({imageId}: FooterType) => {
     });
     updateAppContext({AppDispatcher, data: updatedImages});
     setComment('');
-  };
+  }, [activeUserId, comment]);
+
   return (
     <View style={styles.container}>
       <InputWithButton
@@ -48,7 +49,7 @@ export default Footer;
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: 70,
+    height: AppConstants.IS_ANDROID ? 70 : Metrics.screenHorizontalPadding * 4,
     position: 'absolute',
     bottom: 0,
     borderTopColor: Colors.inputBgColor,
@@ -59,6 +60,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     paddingTop: AppConstants.IS_ANDROID
       ? Metrics.doubleBaseMargin
-      : Metrics.doubleBaseMargin - Metrics.smallMargin,
+      : Metrics.smallMargin,
   },
 });
